@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.toyrobotsimulator.viewmodel.RobotViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvPosition"
+            android:adapter="@{viewModel.gridAdapter}"
+            />
+
+        <LinearLayout
+            android:id="@+id/controlsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModel.moveRobot()}"
+                android:text="@string/move" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTurnLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModel.turnLeft()}"
+                android:text="@string/turn_left" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTurnRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModel.turnRight()}"
+                android:text="@string/turn_right" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_below="@+id/controlsLayout"
+            android:text="@{String.format(`Position: (%d, %d)`, viewModel.robotPosition.x, viewModel.robotPosition.y)}" />
+    </RelativeLayout>
+</layout>
