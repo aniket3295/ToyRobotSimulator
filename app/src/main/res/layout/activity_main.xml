@@ -47,13 +47,48 @@
                 android:onClick="@{() -> viewModel.turnRight()}"
                 android:text="@string/turn_right" />
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/positionPlaceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/controlsLayout"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/xAxisEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/x_position">
+            </EditText>
+            <EditText
+                android:id="@+id/yAxisEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_toEndOf="@+id/xAxisEditText"
+                android:hint="@string/y_position">
+            </EditText>
 
+            <Spinner
+                android:id="@+id/spinnerDirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/yAxisEditText"
+                android:contentDescription="@string/place" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/spinnerDirection"
+                android:text="@string/place" />
+        </RelativeLayout>
         <TextView
             android:id="@+id/tvPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_below="@+id/controlsLayout"
-            android:text="@{String.format(`Position: (%d, %d)`, viewModel.robotPosition.x, viewModel.robotPosition.y)}" />
+            android:padding="5dp"
+            android:layout_below="@+id/positionPlaceLayout"
+            android:text="@string/initial_position"/>
     </RelativeLayout>
 </layout>

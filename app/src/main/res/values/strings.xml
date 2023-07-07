@@ -3,4 +3,11 @@
     <string name="move">Move</string>
     <string name="turn_left">Turn Left</string>
     <string name="turn_right">Turn Right</string>
+    <string name="x_position">X Position</string>
+    <string name="y_position">Y Position</string>
+    <string name="place">Place</string>
+    <string name="initial_position">0, 0, SOUTH</string>
+    <string name="error_msg">Please enter x &amp; y values</string>
+    <string name="invalid_move_msg">Invalid move</string>
+    <string name="ok_txt">OK</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.example.toyrobotsimulator.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.toyrobotsimulator.R
 import com.example.toyrobotsimulator.adapter.GridAdapter
+import com.example.toyrobotsimulator.model.Direction
 import com.example.toyrobotsimulator.model.Robot
 
 class RobotViewModel : ViewModel() {
@@ -12,7 +14,9 @@ class RobotViewModel : ViewModel() {
     private val mutableRobotPosition = MutableLiveData<Robot>()
     val robotPosition: LiveData<Robot>
         get() = mutableRobotPosition
-
+    private val mutableIsValidMove = MutableLiveData<Boolean>()
+    val isValidMove: LiveData<Boolean>
+        get() = mutableIsValidMove
     private var previousDirection: Robot? = null
 
     lateinit var gridAdapter: GridAdapter
@@ -21,15 +25,30 @@ class RobotViewModel : ViewModel() {
         gridAdapter = adapter
     }
 
+    fun placeRobot(x: Int, y: Int, direction: String ) {
+        val placedDirection: Direction? = when (direction) {
+            "NORTH" -> Direction.NORTH
+            "EAST" -> Direction.EAST
+            "SOUTH" -> Direction.SOUTH
+            "WEST" -> Direction.WEST
+            else -> null
+        }
+        val robot = placedDirection?.let { Robot(x, y, it) }
+        mutableRobotPosition.value = robot?.copy()
+        updateGridCell()
+    }
+
     fun moveRobot() {
         val currentPosition = mutableRobotPosition.value ?: Robot()
         val newPosition = calculateNewPosition(currentPosition)
 
         if (newPosition != null) {
             mutableRobotPosition.value = newPosition.copy()
+            previousDirection = newPosition.copy()
             updateGridCell()
         }else {
             mutableRobotPosition.value = previousDirection?.copy()
+            mutableIsValidMove.value = false
         }
     }
 
